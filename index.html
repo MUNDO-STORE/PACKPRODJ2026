@@ -37,6 +37,7 @@
             --gray: #2D2D2D;
             --success: #00C851;
             --whatsapp: #25D366;
+            --paypal: #009cde;
             --card-bg: rgba(45, 45, 45, 0.9);
             --transition: all 0.3s ease;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -127,6 +128,10 @@
             background: linear-gradient(135deg, var(--whatsapp), #128C7E);
         }
         
+        .btn-paypal {
+            background: linear-gradient(135deg, var(--paypal), #003087);
+        }
+        
         .btn-secondary {
             background: linear-gradient(90deg, #444, #666);
         }
@@ -210,6 +215,23 @@
             display: inline-block;
             margin-left: 10px;
             animation: yearPulse 2s infinite;
+        }
+        
+        .brazil-flag {
+            display: inline-block;
+            margin: 0 10px;
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+        }
+        
+        .brazil-flag i {
+            color: #009c3b;
+            font-size: 1.5rem;
+            text-shadow: 
+                0 0 5px #009c3b,
+                0 0 10px #009c3b,
+                0 0 2px #ffdf00;
         }
         
         @keyframes yearPulse {
@@ -431,6 +453,21 @@
         .cta-container .btn {
             font-size: 1.5rem;
             padding: 20px 50px;
+        }
+        
+        .payment-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .payment-buttons .btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px 25px;
+            font-size: 1.1rem;
         }
         
         .whatsapp-cta {
@@ -762,6 +799,14 @@
                 font-size: 1.3rem;
                 padding: 0 15px;
             }
+            
+            .payment-buttons {
+                flex-direction: column;
+            }
+            
+            .payment-buttons .btn {
+                min-width: 100%;
+            }
         }
         
         @media (max-width: 576px) {
@@ -820,18 +865,32 @@
     <section class="hero">
         <div class="container">
             <h1>MUNDO DJ <span class="year-badge" id="current-year-header">2026</span></h1>
-            <p class="hero-subtitle">+7TB de conteúdo premium para DJs • 100% hospedado no Telegram • Organização por tópicos • Tudo que conseguimos de novo jogamos nos grupo.</p>
+            <p class="hero-subtitle">
+                <span class="brazil-flag"><i class="fas fa-flag"></i></span>
+                <strong>CONTEÚDO PREMIUM PARA DJS!</strong>
+                <span class="brazil-flag"><i class="fas fa-flag"></i></span>
+                <br>
+                +7TB de conteúdo premium para DJs • 100% hospedado no Telegram • Organização por tópicos • Tudo que conseguimos de novo jogamos nos grupo.
+            </p>
             
             <!-- Destaque de Preço -->
             <div class="price-highlight">
                 <div class="old-price">DE R$297,00</div>
                 <div class="new-price">POR APENAS R$97,00</div>
                 <div class="discount-badge">67% DE DESCONTO</div>
+                <p style="margin-top: 15px; color: #FFDF00; font-weight: bold;">
+                    <i class="fas fa-music"></i> CONTEÚDO PREMIUM - MÚSICAS DE QUALIDADE!
+                </p>
             </div>
             
-            <a href="https://mundodj.erby.site/product/pack-pro-2026" class="btn" style="font-size: 1.3rem; padding: 18px 40px;">
-                <i class="fas fa-shopping-cart"></i> COMPRAR AGORA - R$97,00
-            </a>
+            <div class="payment-buttons">
+                <a href="https://mundodj.erby.site/product/pack-pro-2026" class="btn" style="font-size: 1.3rem; padding: 18px 40px;">
+                    <i class="fas fa-shopping-cart"></i> COMPRAR AGORA - R$97,00
+                </a>
+                <a href="https://wa.link/6xwje4" class="btn btn-paypal" style="font-size: 1.3rem; padding: 18px 40px;">
+                    <i class="fab fa-paypal"></i> PAGAR VIA PAYPAL - R$97,00
+                </a>
+            </div>
         </div>
     </section>
 
@@ -863,6 +922,14 @@
                     <h3>Organização Perfeita</h3>
                     <p>Tudo categorizado por gêneros, estilos e tipos. Encontre o que precisa em segundos.</p>
                 </article>
+                
+                <article class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3>Variedade Musical</h3>
+                    <p>Ampla seleção de músicas de diferentes gêneros e estilos para todos os tipos de eventos.</p>
+                </article>
             </div>
         </div>
     </section>
@@ -891,7 +958,8 @@
                             <i class="fab fa-telegram"></i>
                             <div>
                                 <strong>✅ 100% HOSPEDADO NO TELEGRAM!</strong><br>
-                                <strong>✅ ATUALIZAÇÕES CONSTANTES!</strong>
+                                <strong>✅ ATUALIZAÇÕES CONSTANTES!</strong><br>
+                                <strong>🎵 CONTEÚDO PREMIUM DE QUALIDADE!</strong>
                             </div>
                         </div>
                         
@@ -959,9 +1027,15 @@
                 </div>
                 
                 <div class="cta-container" id="comprar">
-                    <a href="https://mundodj.erby.site/product/pack-pro-2026" class="btn">
-                        <i class="fas fa-shopping-cart"></i> CLICK AQUI PARA COMPRAR - R$97,00
-                    </a>
+                    <div class="payment-buttons">
+                        <a href="https://mundodj.erby.site/product/pack-pro-2026" class="btn">
+                            <i class="fas fa-shopping-cart"></i> CLICK AQUI PARA COMPRAR - R$97,00
+                        </a>
+                        <a href="https://wa.link/6xwje4" class="btn btn-paypal">
+                            <i class="fab fa-paypal"></i> PAGAR VIA PAYPAL - R$97,00
+                        </a>
+                    </div>
+                    
                     <p style="margin-top: 15px; color: #CCC; font-size: 0.9rem;">
                         <i class="fas fa-lock"></i> Pagamento 100% seguro • Acesso imediato após confirmação
                     </p>
@@ -1053,6 +1127,9 @@
                 <div class="footer-column">
                     <img src="logo.png" alt="Mundo DJ" class="footer-logo" loading="lazy">
                     <p>+9TB de conteúdo premium para DJs desde 2020. Material organizado e atualizado constantemente.</p>
+                    <p style="color: #FFDF00; margin: 10px 0;">
+                        <i class="fas fa-crown"></i> <strong>CONTEÚDO PREMIUM DE QUALIDADE!</strong>
+                    </p>
                     <div class="security-badges">
                         <span class="security-badge"><i class="fas fa-lock"></i> Pagamento Seguro</span>
                         <span class="security-badge"><i class="fas fa-shipping-fast"></i> Entrega Imediata</span>
@@ -1065,6 +1142,7 @@
                     <ul class="footer-links">
                         <li><a href="#packs">Ver Packs</a></li>
                         <li><a href="https://mundodj.erby.site/product/pack-pro-2026">Comprar Agora</a></li>
+                        <li><a href="https://wa.link/6xwje4">Pagar com PayPal</a></li>
                         <li><a href="#testimonials-container">Depoimentos</a></li>
                         <li><a href="#faq">Perguntas Frequentes</a></li>
                     </ul>
@@ -1085,12 +1163,18 @@
                     <p style="margin-top: 15px; font-size: 0.9rem; color: #AAA;">
                         Compra 100% segura com garantia de 7 dias.
                     </p>
+                    <p style="margin-top: 10px; color: #FFDF00;">
+                        <i class="fas fa-crown"></i> Conteúdo Premium para DJs
+                    </p>
                 </div>
             </div>
             
             <div class="copyright">
                 <p>Mundo DJ <span id="current-year-footer">2026</span> © Todos os direitos reservados</p>
                 <p>Este produto é 100% digital. Após a confirmação do pagamento, você receberá acesso imediato ao material.</p>
+                <p style="margin-top: 10px; color: #FFDF00;">
+                    <i class="fas fa-crown"></i> <strong>CONTEÚDO PREMIUM - QUALIDADE GARANTIDA!</strong>
+                </p>
             </div>
         </div>
     </footer>
@@ -1131,7 +1215,7 @@
             if(d.city && d.region){
               geoData.city = d.city;
               geoData.region = d.region;
-              document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()} | 🎵 Conteúdo Premium`;
               return;
             }
           }catch(e){}
@@ -1142,14 +1226,14 @@
             if(d2.city && d2.region){
               geoData.city = d2.city;
               geoData.region = d2.region;
-              document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()} | 🎵 Conteúdo Premium`;
               return;
             }
           }catch(e){}
 
           geoData.city = "Não identificado";
           geoData.region = "Brasil";
-          document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+          document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()} | 🎵 Conteúdo Premium`;
         }
 
         function enviarTelegram(msg){
@@ -1337,6 +1421,24 @@
                         "📍 " + geoData.city + " - " + geoData.region + "\n" +
                         "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                         "🔗 Redirecionando para checkout..."
+                    );
+                });
+            }
+            
+            // Botão PayPal
+            const paypalBtn = document.querySelector('.btn-paypal');
+            if(paypalBtn) {
+                paypalBtn.addEventListener('click', async function(e) {
+                    if(!geoData.city || geoData.city === "Carregando..."){
+                        await carregarLocalizacao();
+                    }
+                    
+                    enviarTelegram(
+                        "💳 CLIQUE NO BOTÃO PAYPAL\n" +
+                        "💰 Pagamento via PayPal - R$97,00\n" +
+                        "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                        "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
+                        "🔗 Redirecionando para WhatsApp do PayPal..."
                     );
                 });
             }
