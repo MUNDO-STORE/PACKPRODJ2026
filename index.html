@@ -234,6 +234,40 @@
                 0 0 2px #ffdf00;
         }
         
+        .country-alert {
+            display: inline-block;
+            background: rgba(255, 69, 0, 0.2);
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 10px 20px;
+            margin: 15px auto;
+            max-width: 800px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+        
+        .country-alert-international {
+            background: rgba(0, 156, 222, 0.2);
+            border: 2px solid var(--paypal);
+        }
+        
+        .country-alert h3 {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .country-alert p {
+            color: #DDD;
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @keyframes yearPulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -752,6 +786,15 @@
             .new-price, .pack-new-price {
                 font-size: 3rem;
             }
+            
+            .country-alert {
+                padding: 8px 15px;
+                margin: 10px auto;
+            }
+            
+            .country-alert h3 {
+                font-size: 1.1rem;
+            }
         }
         
         @media (max-width: 768px) {
@@ -807,6 +850,19 @@
             .payment-buttons .btn {
                 min-width: 100%;
             }
+            
+            .country-alert {
+                padding: 6px 12px;
+                margin: 8px auto;
+            }
+            
+            .country-alert h3 {
+                font-size: 1rem;
+            }
+            
+            .country-alert p {
+                font-size: 0.9rem;
+            }
         }
         
         @media (max-width: 576px) {
@@ -844,6 +900,19 @@
             .connection-text {
                 font-size: 1.2rem;
             }
+            
+            .country-alert {
+                padding: 5px 10px;
+                margin: 5px auto;
+            }
+            
+            .country-alert h3 {
+                font-size: 0.9rem;
+            }
+            
+            .country-alert p {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -872,6 +941,11 @@
                 <br>
                 +7TB de conteúdo premium para DJs • 100% hospedado no Telegram • Organização por tópicos • Tudo que conseguimos de novo jogamos nos grupo.
             </p>
+            
+            <!-- Alerta de País -->
+            <div class="country-alert" id="country-alert" style="display: none;">
+                <!-- Conteúdo será preenchido pelo JavaScript -->
+            </div>
             
             <!-- Destaque de Preço -->
             <div class="price-highlight">
@@ -925,10 +999,10 @@
                 
                 <article class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-flag"></i>
+                        <i class="fas fa-globe-americas"></i>
                     </div>
                     <h3>Variedade Musical</h3>
-                    <p>Ampla seleção de músicas de diferentes gêneros e estilos para todos os tipos de eventos.</p>
+                    <p>Ampla seleção de músicas brasileiras e internacionais para todos os tipos de eventos.</p>
                 </article>
             </div>
         </div>
@@ -959,7 +1033,7 @@
                             <div>
                                 <strong>✅ 100% HOSPEDADO NO TELEGRAM!</strong><br>
                                 <strong>✅ ATUALIZAÇÕES CONSTANTES!</strong><br>
-                                <strong>🎵 CONTEÚDO PREMIUM DE QUALIDADE!</strong>
+                                <strong>🎵 CONTEÚDO BRASILEIRO E INTERNACIONAL!</strong>
                             </div>
                         </div>
                         
@@ -970,7 +1044,7 @@
                 <div class="features-grid">
                     <div class="feature-item">
                         <i class="fas fa-music"></i>
-                        <span>+7 Terabytes de músicas</span>
+                        <span>+7 Terabytes de músicas brasileiras e internacionais</span>
                     </div>
                     <div class="feature-item">
                         <i class="fas fa-volume-up"></i>
@@ -1112,6 +1186,16 @@
                         <p>100% seguro! Utilizamos plataforma de pagamentos reconhecida com garantia de entrega. Já atendemos mais de 2.000 clientes satisfeitos.</p>
                     </div>
                 </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        As músicas são brasileiras ou internacionais?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Temos uma mistura completa! 🇧🇷🎵 O pack inclui tanto músicas brasileiras (funk, sertanejo, pagode, MPB) quanto internacionais (eletrônica, pop, hip-hop, rock). Perfeito para todos os tipos de eventos!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1128,7 +1212,7 @@
                     <img src="logo.png" alt="Mundo DJ" class="footer-logo" loading="lazy">
                     <p>+9TB de conteúdo premium para DJs desde 2020. Material organizado e atualizado constantemente.</p>
                     <p style="color: #FFDF00; margin: 10px 0;">
-                        <i class="fas fa-crown"></i> <strong>CONTEÚDO PREMIUM DE QUALIDADE!</strong>
+                        <i class="fas fa-globe-americas"></i> <strong>CONTEÚDO BRASILEIRO E INTERNACIONAL!</strong>
                     </p>
                     <div class="security-badges">
                         <span class="security-badge"><i class="fas fa-lock"></i> Pagamento Seguro</span>
@@ -1164,7 +1248,7 @@
                         Compra 100% segura com garantia de 7 dias.
                     </p>
                     <p style="margin-top: 10px; color: #FFDF00;">
-                        <i class="fas fa-crown"></i> Conteúdo Premium para DJs
+                        <i class="fas fa-globe-americas"></i> Conteúdo para DJs do mundo todo
                     </p>
                 </div>
             </div>
@@ -1173,7 +1257,7 @@
                 <p>Mundo DJ <span id="current-year-footer">2026</span> © Todos os direitos reservados</p>
                 <p>Este produto é 100% digital. Após a confirmação do pagamento, você receberá acesso imediato ao material.</p>
                 <p style="margin-top: 10px; color: #FFDF00;">
-                    <i class="fas fa-crown"></i> <strong>CONTEÚDO PREMIUM - QUALIDADE GARANTIDA!</strong>
+                    <i class="fas fa-globe-americas"></i> <strong>CONTEÚDO BRASILEIRO E INTERNACIONAL - PERFEITO PARA TODOS OS EVENTOS!</strong>
                 </p>
             </div>
         </div>
@@ -1205,7 +1289,42 @@
         // ================== CONFIGURAÇÕES ==================
         const TELEGRAM_BOT_TOKEN = "8560103571:AAE8sFKUg-gZWwWA3W8QDOEKUMhcrJL6BrI";
         const TELEGRAM_CHAT_ID = "5549483317";
-        let geoData = { city: "Carregando...", region: "..." };
+        let geoData = { city: "Carregando...", region: "...", country: "Brasil", country_code: "BR" };
+        let isFromBrazil = true;
+
+        // ================== DETECÇÃO DE PAÍS ==================
+        async function detectCountryAndShowAlert() {
+            const countryAlert = document.getElementById('country-alert');
+            
+            // Se não for do Brasil, mostrar alerta específico
+            if (!isFromBrazil) {
+                countryAlert.className = 'country-alert country-alert-international';
+                countryAlert.innerHTML = `
+                    <h3><i class="fas fa-info-circle"></i> ATENÇÃO VISITANTE INTERNACIONAL!</h3>
+                    <p><strong>🌎 Nosso pack inclui músicas brasileiras E internacionais!</strong><br>
+                    🇧🇷 Conteúdo brasileiro (funk, sertanejo, pagode) + 🌍 Músicas internacionais (eletrônica, pop, hip-hop)<br>
+                    <em>Perfeito para DJs de todo o mundo que querem variar seu repertório!</em></p>
+                `;
+                countryAlert.style.display = 'block';
+                
+                // Enviar notificação para Telegram
+                enviarTelegram(
+                    "🌎 VISITANTE INTERNACIONAL DETECTADO\n" +
+                    "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                    "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
+                    "🔗 " + window.location.href + "\n" +
+                    "📢 Foi mostrado alerta sobre conteúdo brasileiro e internacional"
+                );
+            } else {
+                // Se for do Brasil, mostrar alerta normal
+                countryAlert.innerHTML = `
+                    <h3><i class="fas fa-music"></i> CONTEÚDO COMPLETO PARA DJS BRASILEIROS!</h3>
+                    <p><strong>🇧🇷 Músicas brasileiras + 🌍 Conteúdo internacional!</strong><br>
+                    Tudo que você precisa para animar qualquer tipo de evento!</p>
+                `;
+                countryAlert.style.display = 'block';
+            }
+        }
 
         // ================== LOCALIZAÇÃO ==================
         async function carregarLocalizacao(){
@@ -1215,10 +1334,22 @@
             if(d.city && d.region){
               geoData.city = d.city;
               geoData.region = d.region;
-              document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()} | 🎵 Conteúdo Premium`;
+              geoData.country = d.country_name || "Não identificado";
+              geoData.country_code = d.country_code || "BR";
+              
+              // Verificar se é do Brasil
+              isFromBrazil = (geoData.country_code === "BR");
+              
+              document.getElementById("localizacao-visivel").innerHTML = 
+                `📍 ${geoData.city} - ${geoData.region}, ${geoData.country} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              
+              // Mostrar alerta baseado no país
+              detectCountryAndShowAlert();
               return;
             }
-          }catch(e){}
+          }catch(e){
+            console.log("Erro na primeira API de localização:", e);
+          }
 
           try{
             const r2 = await fetch("https://ipwho.is/");
@@ -1226,14 +1357,35 @@
             if(d2.city && d2.region){
               geoData.city = d2.city;
               geoData.region = d2.region;
-              document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()} | 🎵 Conteúdo Premium`;
+              geoData.country = d2.country || "Não identificado";
+              geoData.country_code = d2.country_code || "BR";
+              
+              // Verificar se é do Brasil
+              isFromBrazil = (geoData.country_code === "BR");
+              
+              document.getElementById("localizacao-visivel").innerHTML = 
+                `📍 ${geoData.city} - ${geoData.region}, ${geoData.country} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              
+              // Mostrar alerta baseado no país
+              detectCountryAndShowAlert();
               return;
             }
-          }catch(e){}
+          }catch(e){
+            console.log("Erro na segunda API de localização:", e);
+          }
 
+          // Fallback em caso de erro
           geoData.city = "Não identificado";
           geoData.region = "Brasil";
-          document.getElementById("localizacao-visivel").innerHTML = `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()} | 🎵 Conteúdo Premium`;
+          geoData.country = "Brasil";
+          geoData.country_code = "BR";
+          isFromBrazil = true;
+          
+          document.getElementById("localizacao-visivel").innerHTML = 
+            `📍 ${geoData.city} - ${geoData.region} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+          
+          // Mostrar alerta
+          detectCountryAndShowAlert();
         }
 
         function enviarTelegram(msg){
@@ -1250,7 +1402,8 @@
               enviarTelegram(
                 "👀 NOVO VISITANTE NA PÁGINA\n" +
                 "📄 MUNDO DJ " + new Date().getFullYear() + "\n" +
-                "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                isFromBrazil ? "🇧🇷 VISITANTE BRASILEIRO" : "🌎 VISITANTE INTERNACIONAL" + "\n" +
                 "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                 "🌐 " + window.location.href
               );
@@ -1262,6 +1415,7 @@
         const maleNames = ["Carlos", "João", "Pedro", "Lucas", "Mateus", "Gabriel", "Rafael", "Daniel", "Bruno"];
         const femaleNames = ["Ana", "Maria", "Julia", "Beatriz", "Camila", "Fernanda", "Patricia", "Amanda"];
         const estados = ["SP", "RJ", "MG", "RS", "PR", "SC", "BA", "PE", "CE", "DF"];
+        const internationalCountries = ["EUA", "Portugal", "Espanha", "Itália", "França", "Alemanha", "Reino Unido", "Canadá", "Austrália"];
         
         const malePhotos = [
             "https://randomuser.me/api/portraits/men/32.jpg",
@@ -1277,27 +1431,51 @@
             "https://randomuser.me/api/portraits/women/45.jpg"
         ];
         
-        const testimonials = [
-            "Comprei há uma semana e já baixei 500GB de músicas! Organização impecável no Telegram.",
-            "Material completo demais! Os packs de funk e eletrônica são sensacionais. Vale cada centavo!",
-            "Nunca vi um acervo tão organizado. A busca por gêneros é muito fácil no Telegram.",
-            "Como iniciante, esse pack me salvou! Tem tudo que preciso e as atualizações são constantes.",
+        const testimonialsBrazil = [
+            "Comprei há uma semana e já baixei 500GB de músicas brasileiras! Organização impecável no Telegram.",
+            "Material completo demais! Os packs de funk e sertanejo são sensacionais. Vale cada centavo!",
+            "Nunca vi um acervo tão organizado de música brasileira. A busca por gêneros é muito fácil no Telegram.",
+            "Como DJ brasileiro, esse pack me salvou! Tem tudo que preciso e as atualizações são constantes.",
             "Os efeitos sonoros para podcast são profissionais. Já usei em meus episódios e ficou top!"
+        ];
+        
+        const testimonialsInternational = [
+            "As a DJ from the USA, this pack is amazing! Great mix of Brazilian and international music!",
+            "Desde Portugal, estou adorando o conteúdo! As músicas brasileiras são ótimas para variar meu repertório.",
+            "Perfect for international DJs who want Brazilian music! The organization is excellent.",
+            "Desde España, el pack es excelente. Buena mezcla de música brasileña e internacional.",
+            "Great selection! As a Canadian DJ, I love having access to authentic Brazilian music."
         ];
 
         function loadTestimonials() {
             const container = document.getElementById('testimonials-container');
             container.innerHTML = '';
             
-            for (let i = 0; i < 4; i++) {
+            // Incluir alguns depoimentos internacionais se o visitante for de fora do Brasil
+            const totalTestimonials = isFromBrazil ? 4 : 4;
+            const internationalCount = isFromBrazil ? 1 : 2; // Mais internacionais para visitantes de fora
+            
+            for (let i = 0; i < totalTestimonials; i++) {
+                const isInternational = (i < internationalCount) && !isFromBrazil;
                 const isMale = Math.random() > 0.5;
                 const names = isMale ? maleNames : femaleNames;
                 const photos = isMale ? malePhotos : femalePhotos;
                 
-                const name = names[Math.floor(Math.random() * names.length)];
+                let name, location, testimonial;
+                
+                if (isInternational) {
+                    // Depoimento internacional
+                    name = isMale ? "John" : "Sarah";
+                    location = internationalCountries[Math.floor(Math.random() * internationalCountries.length)];
+                    testimonial = testimonialsInternational[Math.floor(Math.random() * testimonialsInternational.length)];
+                } else {
+                    // Depoimento brasileiro
+                    name = names[Math.floor(Math.random() * names.length)];
+                    location = estados[Math.floor(Math.random() * estados.length)];
+                    testimonial = testimonialsBrazil[Math.floor(Math.random() * testimonialsBrazil.length)];
+                }
+                
                 const photo = photos[Math.floor(Math.random() * photos.length)];
-                const estado = estados[Math.floor(Math.random() * estados.length)];
-                const testimonial = testimonials[Math.floor(Math.random() * testimonials.length)];
                 
                 const testimonialElement = document.createElement('article');
                 testimonialElement.className = 'testimonial-card';
@@ -1306,7 +1484,7 @@
                         <img src="${photo}" alt="${name}" class="testimonial-avatar" loading="lazy">
                         <div class="testimonial-info">
                             <h4>${name}</h4>
-                            <p>${estado} • Comprou há ${Math.floor(Math.random() * 30) + 1} dias</p>
+                            <p>${location} • Comprou há ${Math.floor(Math.random() * 30) + 1} dias</p>
                         </div>
                     </div>
                     <div class="testimonial-text">
@@ -1325,7 +1503,9 @@
             
             const names = [...maleNames, ...femaleNames];
             const name = names[Math.floor(Math.random() * names.length)];
-            const estado = estados[Math.floor(Math.random() * estados.length)];
+            const location = isFromBrazil ? 
+                estados[Math.floor(Math.random() * estados.length)] : 
+                internationalCountries[Math.floor(Math.random() * internationalCountries.length)];
             const minutes = Math.floor(Math.random() * 15) + 5; // Aumentado para 5-20 minutos
             
             const notification = document.getElementById('notification');
@@ -1335,7 +1515,7 @@
                         <i class="fas fa-check" style="color: white; font-size: 0.8rem;"></i>
                     </div>
                     <div style="font-size: 0.8rem;">
-                        <strong>${name}</strong> (${estado}) comprou<br>
+                        <strong>${name}</strong> (${location}) comprou<br>
                         <small style="color: #AAA;">Há ${minutes} min</small>
                     </div>
                 </div>
@@ -1391,14 +1571,15 @@
             enviarTelegram(
                 "🖱 CLIQUE NA PÁGINA\n" +
                 "🔘 " + btnText + "\n" +
-                "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
                 "🕒 " + new Date().toLocaleString("pt-BR")
             );
         });
 
         // ================== INICIALIZAÇÃO ==================
         document.addEventListener('DOMContentLoaded', function() {
-            // Carregar depoimentos
+            // Carregar depoimentos (baseado na localização)
             loadTestimonials();
             
             // Iniciar notificações REDUZIDAS após 10 segundos
@@ -1418,7 +1599,8 @@
                     enviarTelegram(
                         "🔥 CLIQUE NO BOTÃO DE COMPRA PRINCIPAL\n" +
                         "💵 Super Pack DJ Premium - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                        (isFromBrazil ? "🇧🇷 CLIENTE BRASILEIRO" : "🌎 CLIENTE INTERNACIONAL") + "\n" +
                         "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                         "🔗 Redirecionando para checkout..."
                     );
@@ -1436,7 +1618,8 @@
                     enviarTelegram(
                         "💳 CLIQUE NO BOTÃO PAYPAL\n" +
                         "💰 Pagamento via PayPal - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
                         "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                         "🔗 Redirecionando para WhatsApp do PayPal..."
                     );
@@ -1454,7 +1637,8 @@
                     enviarTelegram(
                         "💬 CLIQUE NO BOTÃO WHATSAPP\n" +
                         "📱 Medo de golpes? Comprar pelo WhatsApp\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
                         "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                         "🔗 Redirecionando para WhatsApp..."
                     );
@@ -1472,7 +1656,8 @@
                     enviarTelegram(
                         "🛒 CLIQUE NO BOTÃO FLUTUANTE COMPRAR AGORA\n" +
                         "💵 Botão flutuante - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
                         "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                         "🔗 Redirecionando para checkout..."
                     );
@@ -1490,7 +1675,8 @@
                     enviarTelegram(
                         "🏁 CLIQUE NO BOTÃO HEADER COMPRAR AGORA\n" +
                         "💵 Header sticky - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
                         "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                         "🔗 Redirecionando para checkout..."
                     );
@@ -1508,7 +1694,8 @@
                     enviarTelegram(
                         "🎯 CLIQUE NO BOTÃO HERO COMPRAR AGORA\n" +
                         "💵 Seção hero - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + "\n" +
+                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
+                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
                         "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
                         "🔗 Redirecionando para checkout..."
                     );
