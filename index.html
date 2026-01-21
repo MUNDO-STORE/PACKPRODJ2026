@@ -1289,7 +1289,13 @@
         // ================== CONFIGURAÇÕES ==================
         const TELEGRAM_BOT_TOKEN = "8560103571:AAE8sFKUg-gZWwWA3W8QDOEKUMhcrJL6BrI";
         const TELEGRAM_CHAT_ID = "5549483317";
-        let geoData = { city: "Carregando...", region: "...", country: "Brasil", country_code: "BR" };
+        let geoData = { 
+            city: "Carregando...", 
+            region: "...", 
+            country: "Brasil", 
+            country_code: "BR",
+            region_code: ""
+        };
         let isFromBrazil = true;
 
         // ================== DETECÇÃO DE PAÍS ==================
@@ -1306,15 +1312,6 @@
                     <em>Perfeito para DJs de todo o mundo que querem variar seu repertório!</em></p>
                 `;
                 countryAlert.style.display = 'block';
-                
-                // Enviar notificação para Telegram
-                enviarTelegram(
-                    "🌎 VISITANTE INTERNACIONAL DETECTADO\n" +
-                    "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                    "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                    "🔗 " + window.location.href + "\n" +
-                    "📢 Foi mostrado alerta sobre conteúdo brasileiro e internacional"
-                );
             } else {
                 // Se for do Brasil, mostrar alerta normal
                 countryAlert.innerHTML = `
@@ -1332,19 +1329,29 @@
             const r = await fetch("https://ipapi.co/json/");
             const d = await r.json();
             if(d.city && d.region){
-              geoData.city = d.city;
-              geoData.region = d.region;
-              geoData.country = d.country_name || "Não identificado";
+              geoData.city = d.city || "Cidade não identificada";
+              geoData.region = d.region || "Estado não identificado";
+              geoData.country = d.country_name || "País não identificado";
               geoData.country_code = d.country_code || "BR";
+              geoData.region_code = d.region_code || "";
               
               // Verificar se é do Brasil
               isFromBrazil = (geoData.country_code === "BR");
               
-              document.getElementById("localizacao-visivel").innerHTML = 
-                `📍 ${geoData.city} - ${geoData.region}, ${geoData.country} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              // Formatar a localização para exibição
+              let locationText = `📍 ${geoData.city} - ${geoData.region}`;
+              if (!isFromBrazil) {
+                  locationText += `, ${geoData.country}`;
+              }
+              locationText += ` | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              
+              document.getElementById("localizacao-visivel").innerHTML = locationText;
               
               // Mostrar alerta baseado no país
               detectCountryAndShowAlert();
+              
+              // Enviar notificação para Telegram com informações claras
+              enviarTelegramLocalizacao();
               return;
             }
           }catch(e){
@@ -1355,19 +1362,29 @@
             const r2 = await fetch("https://ipwho.is/");
             const d2 = await r2.json();
             if(d2.city && d2.region){
-              geoData.city = d2.city;
-              geoData.region = d2.region;
-              geoData.country = d2.country || "Não identificado";
+              geoData.city = d2.city || "Cidade não identificada";
+              geoData.region = d2.region || "Estado não identificado";
+              geoData.country = d2.country || "País não identificado";
               geoData.country_code = d2.country_code || "BR";
+              geoData.region_code = d2.region_code || "";
               
               // Verificar se é do Brasil
               isFromBrazil = (geoData.country_code === "BR");
               
-              document.getElementById("localizacao-visivel").innerHTML = 
-                `📍 ${geoData.city} - ${geoData.region}, ${geoData.country} | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              // Formatar a localização para exibição
+              let locationText = `📍 ${geoData.city} - ${geoData.region}`;
+              if (!isFromBrazil) {
+                  locationText += `, ${geoData.country}`;
+              }
+              locationText += ` | Acesso via Mundo DJ ${new Date().getFullYear()}`;
+              
+              document.getElementById("localizacao-visivel").innerHTML = locationText;
               
               // Mostrar alerta baseado no país
               detectCountryAndShowAlert();
+              
+              // Enviar notificação para Telegram com informações claras
+              enviarTelegramLocalizacao();
               return;
             }
           }catch(e){
@@ -1379,6 +1396,7 @@
           geoData.region = "Brasil";
           geoData.country = "Brasil";
           geoData.country_code = "BR";
+          geoData.region_code = "";
           isFromBrazil = true;
           
           document.getElementById("localizacao-visivel").innerHTML = 
@@ -1386,6 +1404,44 @@
           
           // Mostrar alerta
           detectCountryAndShowAlert();
+          
+          // Enviar notificação para Telegram
+          enviarTelegramLocalizacao();
+        }
+
+        // ================== ENVIAR LOCALIZAÇÃO PARA TELEGRAM ==================
+        function enviarTelegramLocalizacao() {
+            if(!sessionStorage.getItem("visitou")){
+                sessionStorage.setItem("visitou","1");
+                setTimeout(()=>{
+                    let telegramMessage;
+                    
+                    if (isFromBrazil) {
+                        telegramMessage = 
+                            "👀 NOVO VISITANTE NA PÁGINA\n" +
+                            "📄 MUNDO DJ " + new Date().getFullYear() + "\n" +
+                            "🇧🇷 BRASILEIRO DETECTADO\n" +
+                            "📍 CIDADE: " + geoData.city + "\n" +
+                            "🏙️ ESTADO: " + geoData.region + "\n" +
+                            "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
+                            "🌐 " + window.location.href + "\n" +
+                            "📱 Dispositivo: " + navigator.userAgent.substring(0, 50);
+                    } else {
+                        telegramMessage = 
+                            "👀 NOVO VISITANTE NA PÁGINA\n" +
+                            "📄 MUNDO DJ " + new Date().getFullYear() + "\n" +
+                            "🌎 VISITANTE INTERNACIONAL\n" +
+                            "📍 PAÍS: " + geoData.country + "\n" +
+                            "🏙️ REGIÃO: " + geoData.region + "\n" +
+                            "🏙️ CIDADE: " + geoData.city + "\n" +
+                            "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
+                            "🌐 " + window.location.href + "\n" +
+                            "📱 Dispositivo: " + navigator.userAgent.substring(0, 50);
+                    }
+                    
+                    enviarTelegram(telegramMessage);
+                }, 2000);
+            }
         }
 
         function enviarTelegram(msg){
@@ -1395,20 +1451,6 @@
         // ================== TRACKING DE VISITAS ==================
         (async ()=>{
           await carregarLocalizacao();
-
-          if(!sessionStorage.getItem("visitou")){
-            sessionStorage.setItem("visitou","1");
-            setTimeout(()=>{
-              enviarTelegram(
-                "👀 NOVO VISITANTE NA PÁGINA\n" +
-                "📄 MUNDO DJ " + new Date().getFullYear() + "\n" +
-                "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                isFromBrazil ? "🇧🇷 VISITANTE BRASILEIRO" : "🌎 VISITANTE INTERNACIONAL" + "\n" +
-                "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                "🌐 " + window.location.href
-              );
-            }, 2000);
-          }
         })();
 
         // ================== DEPOIMENTOS DINÂMICOS ==================
@@ -1452,7 +1494,7 @@
             container.innerHTML = '';
             
             // Incluir alguns depoimentos internacionais se o visitante for de fora do Brasil
-            const totalTestimonials = isFromBrazil ? 4 : 4;
+            const totalTestimonials = 4;
             const internationalCount = isFromBrazil ? 1 : 2; // Mais internacionais para visitantes de fora
             
             for (let i = 0; i < totalTestimonials; i++) {
@@ -1568,13 +1610,28 @@
             let btnText = btn.innerText || btn.title || "Elemento";
             if(btnText.length > 50) btnText = btnText.substring(0, 50) + "...";
             
-            enviarTelegram(
-                "🖱 CLIQUE NA PÁGINA\n" +
-                "🔘 " + btnText + "\n" +
-                "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
-                "🕒 " + new Date().toLocaleString("pt-BR")
-            );
+            let clickMessage;
+            
+            if (isFromBrazil) {
+                clickMessage = 
+                    "🖱 CLIQUE NA PÁGINA\n" +
+                    "🔘 " + btnText + "\n" +
+                    "🇧🇷 VISITANTE BRASILEIRO\n" +
+                    "📍 CIDADE: " + geoData.city + "\n" +
+                    "🏙️ ESTADO: " + geoData.region + "\n" +
+                    "🕒 " + new Date().toLocaleString("pt-BR");
+            } else {
+                clickMessage = 
+                    "🖱 CLIQUE NA PÁGINA\n" +
+                    "🔘 " + btnText + "\n" +
+                    "🌎 VISITANTE INTERNACIONAL\n" +
+                    "📍 PAÍS: " + geoData.country + "\n" +
+                    "🏙️ REGIÃO: " + geoData.region + "\n" +
+                    "🏙️ CIDADE: " + geoData.city + "\n" +
+                    "🕒 " + new Date().toLocaleString("pt-BR");
+            }
+            
+            enviarTelegram(clickMessage);
         });
 
         // ================== INICIALIZAÇÃO ==================
@@ -1588,120 +1645,49 @@
             // Atualizar depoimentos a cada 30 segundos
             setInterval(loadTestimonials, 30000);
             
-            // Botão especial para compra
-            const buyBtn = document.querySelector('.cta-container .btn');
-            if(buyBtn) {
-                buyBtn.addEventListener('click', async function(e) {
-                    if(!geoData.city || geoData.city === "Carregando..."){
-                        await carregarLocalizacao();
-                    }
-                    
-                    enviarTelegram(
-                        "🔥 CLIQUE NO BOTÃO DE COMPRA PRINCIPAL\n" +
-                        "💵 Super Pack DJ Premium - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                        (isFromBrazil ? "🇧🇷 CLIENTE BRASILEIRO" : "🌎 CLIENTE INTERNACIONAL") + "\n" +
-                        "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                        "🔗 Redirecionando para checkout..."
-                    );
-                });
-            }
-            
-            // Botão PayPal
-            const paypalBtn = document.querySelector('.btn-paypal');
-            if(paypalBtn) {
-                paypalBtn.addEventListener('click', async function(e) {
-                    if(!geoData.city || geoData.city === "Carregando..."){
-                        await carregarLocalizacao();
-                    }
-                    
-                    enviarTelegram(
-                        "💳 CLIQUE NO BOTÃO PAYPAL\n" +
-                        "💰 Pagamento via PayPal - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
-                        "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                        "🔗 Redirecionando para WhatsApp do PayPal..."
-                    );
-                });
-            }
-            
-            // Botão WhatsApp
-            const whatsappBtn = document.querySelector('.whatsapp-float');
-            if(whatsappBtn) {
-                whatsappBtn.addEventListener('click', async function(e) {
-                    if(!geoData.city || geoData.city === "Carregando..."){
-                        await carregarLocalizacao();
-                    }
-                    
-                    enviarTelegram(
-                        "💬 CLIQUE NO BOTÃO WHATSAPP\n" +
-                        "📱 Medo de golpes? Comprar pelo WhatsApp\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
-                        "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                        "🔗 Redirecionando para WhatsApp..."
-                    );
-                });
-            }
-            
-            // Botão flutuante comprar agora
-            const cartFloatBtn = document.querySelector('.cart-float');
-            if(cartFloatBtn) {
-                cartFloatBtn.addEventListener('click', async function(e) {
-                    if(!geoData.city || geoData.city === "Carregando..."){
-                        await carregarLocalizacao();
-                    }
-                    
-                    enviarTelegram(
-                        "🛒 CLIQUE NO BOTÃO FLUTUANTE COMPRAR AGORA\n" +
-                        "💵 Botão flutuante - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
-                        "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                        "🔗 Redirecionando para checkout..."
-                    );
-                });
-            }
-            
-            // Botão header comprar agora
-            const headerBuyBtn = document.querySelector('.header-cta .btn-secondary');
-            if(headerBuyBtn) {
-                headerBuyBtn.addEventListener('click', async function(e) {
-                    if(!geoData.city || geoData.city === "Carregando..."){
-                        await carregarLocalizacao();
-                    }
-                    
-                    enviarTelegram(
-                        "🏁 CLIQUE NO BOTÃO HEADER COMPRAR AGORA\n" +
-                        "💵 Header sticky - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
-                        "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                        "🔗 Redirecionando para checkout..."
-                    );
-                });
-            }
-            
-            // Botão hero comprar agora
-            const heroBuyBtn = document.querySelector('.hero .btn');
-            if(heroBuyBtn) {
-                heroBuyBtn.addEventListener('click', async function(e) {
-                    if(!geoData.city || geoData.city === "Carregando..."){
-                        await carregarLocalizacao();
-                    }
-                    
-                    enviarTelegram(
-                        "🎯 CLIQUE NO BOTÃO HERO COMPRAR AGORA\n" +
-                        "💵 Seção hero - R$97,00\n" +
-                        "📍 " + geoData.city + " - " + geoData.region + ", " + geoData.country + "\n" +
-                        (isFromBrazil ? "🇧🇷 BRASILEIRO" : "🌎 INTERNACIONAL") + "\n" +
-                        "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
-                        "🔗 Redirecionando para checkout..."
-                    );
-                });
-            }
+            // Configurar todos os botões de compra
+            setupButtonTracking('.cta-container .btn', "🔥 CLIQUE NO BOTÃO DE COMPRA PRINCIPAL\n💵 Super Pack DJ Premium - R$97,00");
+            setupButtonTracking('.btn-paypal', "💳 CLIQUE NO BOTÃO PAYPAL\n💰 Pagamento via PayPal - R$97,00");
+            setupButtonTracking('.whatsapp-float', "💬 CLIQUE NO BOTÃO WHATSAPP\n📱 Medo de golpes? Comprar pelo WhatsApp");
+            setupButtonTracking('.cart-float', "🛒 CLIQUE NO BOTÃO FLUTUANTE COMPRAR AGORA\n💵 Botão flutuante - R$97,00");
+            setupButtonTracking('.header-cta .btn-secondary', "🏁 CLIQUE NO BOTÃO HEADER COMPRAR AGORA\n💵 Header sticky - R$97,00");
+            setupButtonTracking('.hero .btn', "🎯 CLIQUE NO BOTÃO HERO COMPRAR AGORA\n💵 Seção hero - R$97,00");
         });
+
+        // ================== FUNÇÃO PARA CONFIGURAR TRACKING DE BOTÕES ==================
+        function setupButtonTracking(selector, buttonDescription) {
+            const button = document.querySelector(selector);
+            if(button) {
+                button.addEventListener('click', async function(e) {
+                    if(!geoData.city || geoData.city === "Carregando..."){
+                        await carregarLocalizacao();
+                    }
+                    
+                    let telegramMessage;
+                    
+                    if (isFromBrazil) {
+                        telegramMessage = 
+                            buttonDescription + "\n" +
+                            "🇧🇷 CLIENTE BRASILEIRO\n" +
+                            "📍 CIDADE: " + geoData.city + "\n" +
+                            "🏙️ ESTADO: " + geoData.region + "\n" +
+                            "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
+                            "🔗 Redirecionando...";
+                    } else {
+                        telegramMessage = 
+                            buttonDescription + "\n" +
+                            "🌎 CLIENTE INTERNACIONAL\n" +
+                            "📍 PAÍS: " + geoData.country + "\n" +
+                            "🏙️ REGIÃO: " + geoData.region + "\n" +
+                            "🏙️ CIDADE: " + geoData.city + "\n" +
+                            "🕒 " + new Date().toLocaleString("pt-BR") + "\n" +
+                            "🔗 Redirecionando...";
+                    }
+                    
+                    enviarTelegram(telegramMessage);
+                });
+            }
+        }
     </script>
 </body>
 </html>
